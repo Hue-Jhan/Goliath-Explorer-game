@@ -2,7 +2,7 @@
 
 Space simulator with a realistic black hole you can fly into, asteroid fields, hostile interceptor ships, an alien dreadnought mothership, a planetary nebula around a white dwarf, and a pulsar.
 
-Built with **Godot 4.7** (Forward+ / Vulkan), with every mesh and texture generated in code at load time instead of external art files.
+Vibecoded with Opus 5, built with **Godot 4.7** (Forward+ / Vulkan), with every mesh and texture generated in code at load time instead of external art files.
 
 
 # 🕹️ Game & Graphics
