@@ -5,6 +5,13 @@ Space simulator with a realistic black hole you can fly into, asteroid fields, h
 Vibecoded with Opus 5, built with **Godot 4.7** (Forward+ / Vulkan), with every mesh and texture generated in code at load time instead of external art files.
 
 
+
+https://github.com/user-attachments/assets/e3d3c3e6-e678-446b-aff0-e867ed5c10b6
+
+
+
+
+
 # 🕹️ Game & Graphics
 
 No quests, the black hole is the content. Find out how close you can hold an orbit before your engines can't keep up, and see what happens when you fall in from the inside.
