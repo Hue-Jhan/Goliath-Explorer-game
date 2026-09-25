@@ -1,0 +1,189 @@
+[gd_scene load_steps=6 format=3 uid="uid://bglthxplra001"]
+
+[ext_resource type="Script" path="res://ui/HangarPanel.gd" id="1_hangar"]
+[ext_resource type="Script" path="res://ui/HudPanel.gd" id="2_panel"]
+[ext_resource type="Script" path="res://ui/StatBar.gd" id="3_bar"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_close"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 8.0
+bg_color = Color(0.09, 0.14, 0.17, 1)
+border_width_left = 2
+border_color = Color(0.36, 0.86, 1, 0.7)
+
+[sub_resource type="Environment" id="Environment_preview"]
+background_mode = 1
+background_color = Color(0.02, 0.03, 0.05, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.22, 0.28, 0.38, 1)
+ambient_light_energy = 1.6
+tonemap_mode = 3
+
+[node name="HangarPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hangar")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.004, 0.007, 0.012, 0.94)
+
+[node name="Frame" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = -322.0
+offset_right = 440.0
+offset_bottom = 322.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_panel")
+accent = Color(0.36, 0.86, 1, 1)
+title = "SHIP LOCKER"
+cut_corners = 5
+cut = 18.0
+deep_fill = true
+
+[node name="Preview" type="SubViewportContainer" parent="Frame"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 44.0
+offset_right = 448.0
+offset_bottom = 344.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Frame/Preview"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(420, 300)
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Frame/Preview/SubViewport"]
+environment = SubResource("Environment_preview")
+
+[node name="ShipPreview" type="MeshInstance3D" parent="Frame/Preview/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0)
+
+[node name="Key" type="DirectionalLight3D" parent="Frame/Preview/SubViewport"]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 0, 0)
+light_energy = 2.2
+
+[node name="Rim" type="DirectionalLight3D" parent="Frame/Preview/SubViewport"]
+transform = Transform3D(-0.707107, 0.353553, -0.612372, 0, 0.866025, 0.5, 0.707107, 0.353553, -0.612372, 0, 0, 0)
+light_color = Color(0.45, 0.75, 1, 1)
+light_energy = 1.4
+
+[node name="Cam" type="Camera3D" parent="Frame/Preview/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.85, 3.3)
+fov = 42.0
+
+[node name="Name" type="Label" parent="Frame"]
+layout_mode = 0
+offset_left = 474.0
+offset_top = 48.0
+offset_right = 852.0
+offset_bottom = 84.0
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "MK-I  SKIFF"
+
+[node name="Class" type="Label" parent="Frame"]
+layout_mode = 0
+offset_left = 474.0
+offset_top = 82.0
+offset_right = 852.0
+offset_bottom = 104.0
+theme_override_colors/font_color = Color(1, 0.68, 0.22, 1)
+theme_override_font_sizes/font_size = 12
+text = "standard issue · deep survey hull"
+
+[node name="Stats" type="VBoxContainer" parent="Frame"]
+layout_mode = 0
+offset_left = 474.0
+offset_top = 128.0
+offset_right = 852.0
+offset_bottom = 292.0
+theme_override_constants/separation = 8
+
+[node name="Speed" type="Control" parent="Frame/Stats"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("3_bar")
+caption = "SPEED"
+accent = Color(0.36, 0.86, 1, 1)
+
+[node name="Laser" type="Control" parent="Frame/Stats"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("3_bar")
+caption = "LASER POWER"
+accent = Color(1, 0.68, 0.22, 1)
+
+[node name="Hull" type="Control" parent="Frame/Stats"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("3_bar")
+caption = "HULL INTEGRITY"
+color_by_value = true
+
+[node name="Charge" type="Control" parent="Frame/Stats"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+script = ExtResource("3_bar")
+caption = "CHARGED BEAM"
+accent = Color(0.35, 0.95, 0.75, 1)
+
+[node name="CardsLabel" type="Label" parent="Frame"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 352.0
+offset_right = 500.0
+offset_bottom = 372.0
+theme_override_colors/font_color = Color(1, 0.68, 0.22, 1)
+theme_override_font_sizes/font_size = 12
+text = "AVAILABLE HULLS · click to fly"
+
+[node name="Cards" type="HBoxContainer" parent="Frame"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 380.0
+offset_right = 852.0
+offset_bottom = 486.0
+theme_override_constants/separation = 12
+
+[node name="Close" type="Button" parent="Frame"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -54.0
+offset_right = -26.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.84, 0.94, 1, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_close")
+theme_override_styles/hover = SubResource("StyleBoxFlat_close")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_close")
+theme_override_styles/focus = SubResource("StyleBoxFlat_close")
+text = "Close  (Esc)"

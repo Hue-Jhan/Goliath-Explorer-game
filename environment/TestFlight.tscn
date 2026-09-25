@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://bglthxplr2001"]
+
+[ext_resource type="Script" path="res://environment/TestFlight.gd" id="1_test"]
+[ext_resource type="PackedScene" path="res://environment/Goliath.tscn" id="2_goliath"]
+[ext_resource type="Script" path="res://core/DebugCamera.gd" id="3_cam"]
+[ext_resource type="Shader" path="res://environment/GoliathSky.gdshader" id="4_sky"]
+[ext_resource type="PackedScene" path="res://environment/Asteroid.tscn" id="5_rock"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sky"]
+shader = ExtResource("4_sky")
+shader_parameter/exposure = 1.3
+
+[sub_resource type="Sky" id="Sky_deep"]
+sky_material = SubResource("ShaderMaterial_sky")
+radiance_size = 1
+process_mode = 2
+
+[sub_resource type="Environment" id="Environment_deep"]
+background_mode = 2
+sky = SubResource("Sky_deep")
+ambient_light_source = 2
+ambient_light_color = Color(0.11, 0.13, 0.2, 1)
+ambient_light_energy = 1.2
+reflected_light_source = 0
+tonemap_mode = 3
+tonemap_exposure = 1.0
+tonemap_white = 6.0
+glow_enabled = true
+glow_intensity = 0.9
+glow_bloom = 0.05
+glow_hdr_threshold = 1.1
+
+[node name="TestFlight" type="Node3D"]
+script = ExtResource("1_test")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_deep")
+
+[node name="SunKey" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, -0.25, 0.433013, 0, 0.866025, 0.5, -0.5, -0.433013, 0.75, 0, 0, 0)
+light_energy = 0.8
+light_color = Color(1, 0.93, 0.85, 1)
+shadow_enabled = false
+
+[node name="Goliath" parent="." instance=ExtResource("2_goliath")]
+
+[node name="DebugCamera" type="Camera3D" parent="."]
+transform = Transform3D(0.87758, -0.038646, 0.477872, 0, 0.99675, 0.08061, -0.47943, -0.070742, 0.874727, 4778, 806, 8746)
+near = 0.5
+far = 60000.0
+fov = 70.0
+script = ExtResource("3_cam")
+
+[node name="DepthProbes" type="Node3D" parent="."]
+
+[node name="NearProbe" parent="DepthProbes" instance=ExtResource("5_rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2389, 403, 4373)
+variant = 0
+radius = 150.0
+
+[node name="FarProbe" parent="DepthProbes" instance=ExtResource("5_rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2389, -403, -4373)
+variant = 1
+radius = 150.0
+
+[node name="DiskProbe" parent="DepthProbes" instance=ExtResource("5_rock")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6000, 0, 3000)
+variant = 2
+radius = 180.0
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Readout" type="Label" parent="HUD"]
+offset_left = 24.0
+offset_top = 20.0
+offset_right = 900.0
+offset_bottom = 220.0
+theme_override_colors/font_color = Color(0.78, 0.84, 0.92, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.85)
+theme_override_constants/outline_size = 5
+theme_override_constants/line_spacing = 4
+theme_override_font_sizes/font_size = 16

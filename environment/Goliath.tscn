@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bglthxplr1001"]
+
+[ext_resource type="Script" path="res://environment/Goliath.gd" id="1_goliath"]
+[ext_resource type="Shader" path="res://environment/Goliath.gdshader" id="2_shader"]
+[ext_resource type="Script" path="res://core/GravityWell.gd" id="3_well"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_goliath"]
+render_priority = -1
+shader = ExtResource("2_shader")
+shader_parameter/rs_world = 500.0
+shader_parameter/influence_radius = 15300.0
+shader_parameter/disk_inner = 3.0
+shader_parameter/disk_outer = 17.0
+shader_parameter/disk_rot_speed = 1.0
+shader_parameter/disk_spin = 1.0
+shader_parameter/lens_strength = 1.0
+shader_parameter/disk_tint = Color(1, 1, 1, 1)
+shader_parameter/axis_tilt = 0.0
+shader_parameter/exposure = 1.3
+
+[sub_resource type="SphereMesh" id="SphereMesh_goliath"]
+radius = 15300.0
+height = 30600.0
+radial_segments = 32
+rings = 16
+
+[node name="Goliath" type="Node3D"]
+script = ExtResource("1_goliath")
+
+[node name="Volume" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_goliath")
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("SphereMesh_goliath")
+
+[node name="GravityWell" type="Node3D" parent="."]
+script = ExtResource("3_well")

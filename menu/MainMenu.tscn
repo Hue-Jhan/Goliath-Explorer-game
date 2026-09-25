@@ -1,0 +1,261 @@
+[gd_scene load_steps=15 format=3 uid="uid://bglthxplr3001"]
+
+[ext_resource type="Script" path="res://menu/MainMenu.gd" id="1_menu"]
+[ext_resource type="Script" path="res://menu/MenuBackdrop.gd" id="2_backdrop"]
+[ext_resource type="PackedScene" path="res://environment/Goliath.tscn" id="3_goliath"]
+[ext_resource type="Shader" path="res://environment/GoliathSky.gdshader" id="4_sky"]
+[ext_resource type="PackedScene" path="res://ui/OptionsPanel.tscn" id="5_options"]
+[ext_resource type="PackedScene" path="res://ui/HangarPanel.tscn" id="6_hangar"]
+[ext_resource type="PackedScene" path="res://ui/InfoPanel.tscn" id="7_info"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sky"]
+shader = ExtResource("4_sky")
+shader_parameter/exposure = 1.3
+
+[sub_resource type="Sky" id="Sky_menu"]
+sky_material = SubResource("ShaderMaterial_sky")
+radiance_size = 1
+process_mode = 2
+
+[sub_resource type="Environment" id="Environment_menu"]
+background_mode = 2
+sky = SubResource("Sky_menu")
+ambient_light_source = 2
+ambient_light_color = Color(0.1, 0.12, 0.18, 1)
+reflected_light_source = 0
+tonemap_mode = 3
+tonemap_exposure = 1.0
+tonemap_white = 6.0
+glow_enabled = true
+glow_intensity = 0.85
+glow_bloom = 0.05
+glow_hdr_threshold = 1.1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_normal"]
+content_margin_left = 22.0
+content_margin_top = 12.0
+content_margin_right = 22.0
+content_margin_bottom = 12.0
+bg_color = Color(0.043, 0.055, 0.07, 0.72)
+border_width_left = 2
+border_color = Color(0.85, 0.33, 0.11, 0.45)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
+content_margin_left = 22.0
+content_margin_top = 12.0
+content_margin_right = 22.0
+content_margin_bottom = 12.0
+bg_color = Color(0.22, 0.1, 0.045, 0.92)
+border_width_left = 2
+border_color = Color(1, 0.47, 0.16, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pressed"]
+content_margin_left = 22.0
+content_margin_top = 12.0
+content_margin_right = 22.0
+content_margin_bottom = 12.0
+bg_color = Color(0.34, 0.14, 0.055, 0.95)
+border_width_left = 2
+border_color = Color(1, 0.6, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_focus"]
+content_margin_left = 22.0
+content_margin_top = 12.0
+content_margin_right = 22.0
+content_margin_bottom = 12.0
+bg_color = Color(0.1, 0.12, 0.14, 0.8)
+border_width_left = 2
+border_color = Color(1, 0.55, 0.22, 0.8)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Backdrop" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+stretch_shrink = 3
+script = ExtResource("2_backdrop")
+
+[node name="SubViewport" type="SubViewport" parent="Backdrop"]
+own_world_3d = true
+handle_input_locally = false
+msaa_3d = 0
+screen_space_aa = 0
+render_target_update_mode = 4
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Backdrop/SubViewport"]
+environment = SubResource("Environment_menu")
+
+[node name="Goliath" parent="Backdrop/SubViewport" instance=ExtResource("3_goliath")]
+
+[node name="Camera3D" type="Camera3D" parent="Backdrop/SubViewport"]
+near = 0.5
+far = 90000.0
+fov = 55.0
+
+[node name="Scrim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.008, 0.01, 0.016, 0.3)
+
+[node name="LanguageButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -132.0
+offset_top = 24.0
+offset_right = -26.0
+offset_bottom = 66.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.84, 0.94, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_focus")
+text = "EN"
+
+[node name="Center" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 112.0
+offset_top = -210.0
+offset_right = 620.0
+offset_bottom = 210.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Column" type="VBoxContainer" parent="Center"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_right = 508.0
+offset_top = -180.0
+offset_bottom = 180.0
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="Center/Column"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.93, 0.91, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.75)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 78
+text = "GOLIATH EXPLORER"
+
+[node name="Tagline" type="Label" parent="Center/Column"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.55, 0.28, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.8)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 15
+text = "expedition to a Schwarzschild horizon"
+
+[node name="Gap" type="Control" parent="Center/Column"]
+custom_minimum_size = Vector2(0, 38)
+layout_mode = 2
+
+[node name="Buttons" type="VBoxContainer" parent="Center/Column"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StartButton" type="Button" parent="Center/Column/Buttons"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.92, 0.9, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_focus")
+text = "Start Expedition"
+alignment = 0
+
+[node name="OptionsButton" type="Button" parent="Center/Column/Buttons"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.92, 0.9, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_focus")
+text = "Options"
+alignment = 0
+
+[node name="ShipsButton" type="Button" parent="Center/Column/Buttons"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.92, 0.9, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_focus")
+text = "Ships (Hangar)"
+alignment = 0
+
+[node name="InfoButton" type="Button" parent="Center/Column/Buttons"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.94, 0.92, 0.9, 1)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pressed")
+theme_override_styles/focus = SubResource("StyleBoxFlat_focus")
+text = "Info & Briefing"
+alignment = 0
+
+[node name="Version" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -38.0
+offset_right = 320.0
+offset_bottom = -16.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.45, 0.45, 0.5, 1)
+theme_override_font_sizes/font_size = 13
+text = "foundation build"
+
+[node name="Options" parent="." instance=ExtResource("5_options")]
+visible = false
+layout_mode = 1
+
+[node name="Hangar" parent="." instance=ExtResource("6_hangar")]
+visible = false
+layout_mode = 1
+
+[node name="Info" parent="." instance=ExtResource("7_info")]
+visible = false
+layout_mode = 1

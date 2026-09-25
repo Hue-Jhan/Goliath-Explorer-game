@@ -1,0 +1,90 @@
+[gd_scene load_steps=4 format=3 uid="uid://bglthxplr8001"]
+
+[ext_resource type="Script" path="res://ui/OptionsPanel.gd" id="1_opt"]
+[ext_resource type="Script" path="res://ui/HudPanel.gd" id="2_panel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_close"]
+content_margin_left = 20.0
+content_margin_top = 8.0
+content_margin_right = 20.0
+content_margin_bottom = 8.0
+bg_color = Color(0.09, 0.14, 0.17, 1)
+border_width_left = 2
+border_color = Color(0.36, 0.86, 1, 0.7)
+
+[node name="OptionsPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_opt")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.004, 0.007, 0.012, 0.94)
+
+[node name="Frame" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -334.0
+offset_right = 380.0
+offset_bottom = 334.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_panel")
+accent = Color(0.36, 0.86, 1, 1)
+title = "OPTIONS"
+cut_corners = 5
+cut = 18.0
+deep_fill = true
+
+[node name="Scroll" type="ScrollContainer" parent="Frame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = 38.0
+offset_right = -26.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Rows" type="VBoxContainer" parent="Frame/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="Close" type="Button" parent="Frame"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -54.0
+offset_right = -26.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.84, 0.94, 1, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_close")
+theme_override_styles/hover = SubResource("StyleBoxFlat_close")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_close")
+theme_override_styles/focus = SubResource("StyleBoxFlat_close")
+text = "Close  (Esc)"

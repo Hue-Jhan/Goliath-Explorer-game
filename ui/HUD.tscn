@@ -1,0 +1,213 @@
+[gd_scene load_steps=12 format=3 uid="uid://bglthxplr6001"]
+
+[ext_resource type="Script" path="res://ui/HUD.gd" id="1_hud"]
+[ext_resource type="Script" path="res://ui/HudPanel.gd" id="2_panel"]
+[ext_resource type="Script" path="res://ui/StatBar.gd" id="3_bar"]
+[ext_resource type="Script" path="res://ui/EscapeCompass.gd" id="4_compass"]
+[ext_resource type="Script" path="res://ui/Minimap.gd" id="5_minimap"]
+[ext_resource type="Script" path="res://ui/TargetMarkers.gd" id="6_markers"]
+[ext_resource type="Script" path="res://ui/KillFeed.gd" id="7_feed"]
+[ext_resource type="Script" path="res://ui/BossBar.gd" id="8_boss"]
+[ext_resource type="Script" path="res://ui/ContactBar.gd" id="9_contacts"]
+[ext_resource type="Script" path="res://ui/CoordReadout.gd" id="10_coords"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_hud")
+
+[node name="Compass" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_compass")
+
+[node name="VesselPanel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 28.0
+offset_top = 24.0
+offset_right = 424.0
+offset_bottom = 228.0
+mouse_filter = 2
+script = ExtResource("2_panel")
+accent = Color(0.36, 0.86, 1, 1)
+title = "VESSEL"
+cut_corners = 5
+cut = 14.0
+
+[node name="Hull" type="Control" parent="VesselPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 32.0
+offset_right = 376.0
+offset_bottom = 68.0
+mouse_filter = 2
+script = ExtResource("3_bar")
+caption = "HEALTH POINTS"
+color_by_value = true
+
+[node name="Thrust" type="Control" parent="VesselPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 74.0
+offset_right = 376.0
+offset_bottom = 110.0
+mouse_filter = 2
+script = ExtResource("3_bar")
+caption = "VELOCITY"
+accent = Color(0.36, 0.86, 1, 1)
+
+[node name="Heat" type="Control" parent="VesselPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 116.0
+offset_right = 376.0
+offset_bottom = 152.0
+mouse_filter = 2
+script = ExtResource("3_bar")
+caption = "THRUSTER HEAT"
+accent = Color(1, 0.68, 0.22, 1)
+
+[node name="Charge" type="Control" parent="VesselPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 158.0
+offset_right = 376.0
+offset_bottom = 194.0
+mouse_filter = 2
+script = ExtResource("3_bar")
+caption = "CHARGED BEAM  [Q]"
+accent = Color(0.35, 0.95, 0.75, 1)
+
+[node name="GoliathPanel" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -440.0
+offset_top = 24.0
+offset_right = -28.0
+offset_bottom = 214.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("2_panel")
+accent = Color(1, 0.68, 0.22, 1)
+title = "GOLIATH · TELEMETRY"
+cut_corners = 6
+cut = 14.0
+
+[node name="Readout" type="Label" parent="GoliathPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 32.0
+offset_right = 392.0
+offset_bottom = 124.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.84, 0.94, 1, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 15
+text = "RADIUS"
+
+[node name="Status" type="Label" parent="GoliathPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 128.0
+offset_right = 392.0
+offset_bottom = 150.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 15
+text = "FREE FLIGHT"
+
+[node name="Proximity" type="Control" parent="GoliathPanel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 156.0
+offset_right = 392.0
+offset_bottom = 192.0
+mouse_filter = 2
+script = ExtResource("3_bar")
+caption = "PROXIMITY"
+accent = Color(1, 0.68, 0.22, 1)
+
+[node name="Markers" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6_markers")
+
+[node name="Minimap" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -232.0
+offset_top = 230.0
+offset_right = -28.0
+offset_bottom = 434.0
+grow_horizontal = 0
+mouse_filter = 2
+script = ExtResource("5_minimap")
+
+[node name="ContactBar" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("9_contacts")
+
+[node name="CoordReadout" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("10_coords")
+
+[node name="BossBar" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("8_boss")
+
+[node name="KillFeed" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_feed")
+
+[node name="DamageFlash" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.85, 0.12, 0.08, 1)

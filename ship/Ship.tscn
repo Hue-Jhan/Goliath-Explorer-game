@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://bglthxplr4001"]
+
+[ext_resource type="Script" path="res://ship/Ship.gd" id="1_ship"]
+[ext_resource type="Script" path="res://ship/ChaseCamera.gd" id="2_cam"]
+[ext_resource type="Script" path="res://ship/LaserCannon.gd" id="3_cannon"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hull"]
+albedo_color = Color(0.36, 0.39, 0.44, 1)
+metallic = 0.85
+metallic_specular = 0.6
+roughness = 0.33
+rim_enabled = true
+rim = 0.55
+rim_tint = 0.7
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bell"]
+shading_mode = 0
+albedo_color = Color(0.45, 0.85, 1, 1)
+emission_enabled = true
+emission = Color(0.3, 0.78, 1, 1)
+emission_energy_multiplier = 2.0
+disable_receive_shadows = true
+
+[node name="Ship" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_ship")
+
+[node name="Hull" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_hull")
+cast_shadow = 0
+
+[node name="Body" type="CollisionShape3D" parent="."]
+
+[node name="EngineGlowL" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44, -0.02, 1.045)
+material_override = SubResource("StandardMaterial3D_bell")
+cast_shadow = 0
+
+[node name="EngineGlowR" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44, -0.02, 1.045)
+material_override = SubResource("StandardMaterial3D_bell")
+cast_shadow = 0
+
+[node name="ThrusterLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.4)
+light_color = Color(0.42, 0.78, 1, 1)
+light_energy = 0.0
+omni_range = 4.0
+shadow_enabled = false
+
+[node name="LaserCannon" type="Node3D" parent="."]
+script = ExtResource("3_cannon")
+
+[node name="ChaseCamera" type="Camera3D" parent="."]
+near = 0.05
+far = 400000.0
+fov = 70.0
+script = ExtResource("2_cam")

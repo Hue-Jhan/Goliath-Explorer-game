@@ -1,0 +1,110 @@
+[gd_scene load_steps=17 format=3 uid="uid://bglthxplr7001"]
+
+[ext_resource type="Script" path="res://environment/Expedition.gd" id="1_exp"]
+[ext_resource type="PackedScene" path="res://environment/Goliath.tscn" id="2_goliath"]
+[ext_resource type="Shader" path="res://environment/GoliathSky.gdshader" id="3_sky"]
+[ext_resource type="PackedScene" path="res://ship/Ship.tscn" id="4_ship"]
+[ext_resource type="Script" path="res://environment/AsteroidField.gd" id="5_field"]
+[ext_resource type="PackedScene" path="res://ui/HUD.tscn" id="6_hud"]
+[ext_resource type="Script" path="res://enemy/EnemySpawner.gd" id="7_spawner"]
+[ext_resource type="Script" path="res://environment/DiskDebris.gd" id="8_debris"]
+[ext_resource type="Script" path="res://ui/MapScreen.gd" id="9_map"]
+[ext_resource type="Script" path="res://environment/Effects.gd" id="10_fx"]
+[ext_resource type="PackedScene" path="res://hazards/SupernovaRemnant.tscn" id="11_remnant"]
+[ext_resource type="PackedScene" path="res://hazards/Pulsar.tscn" id="12_pulsar"]
+[ext_resource type="PackedScene" path="res://boss/Mothership.tscn" id="13_boss"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sky"]
+shader = ExtResource("3_sky")
+shader_parameter/exposure = 1.3
+
+[sub_resource type="Sky" id="Sky_deep"]
+sky_material = SubResource("ShaderMaterial_sky")
+radiance_size = 1
+process_mode = 2
+
+[sub_resource type="Environment" id="Environment_deep"]
+background_mode = 2
+sky = SubResource("Sky_deep")
+ambient_light_source = 2
+ambient_light_color = Color(0.11, 0.13, 0.2, 1)
+ambient_light_energy = 1.9
+reflected_light_source = 0
+tonemap_mode = 3
+tonemap_exposure = 1.0
+tonemap_white = 6.0
+glow_enabled = true
+glow_intensity = 0.9
+glow_bloom = 0.05
+glow_hdr_threshold = 1.1
+
+[node name="Expedition" type="Node3D"]
+script = ExtResource("1_exp")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_deep")
+
+[node name="SunKey" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866025, 0, -0.5, -0.25, 0.866025, -0.433013, 0.433013, 0.5, 0.75, 0, 0, 0)
+light_energy = 2.4
+light_color = Color(1, 0.93, 0.85, 1)
+shadow_enabled = false
+
+[node name="Goliath" parent="." instance=ExtResource("2_goliath")]
+
+[node name="AsteroidField" type="Node3D" parent="."]
+script = ExtResource("5_field")
+
+[node name="DiskDebris" type="Node3D" parent="."]
+script = ExtResource("8_debris")
+
+[node name="Effects" type="Node3D" parent="."]
+script = ExtResource("10_fx")
+pool_size = 16
+
+[node name="EnemySpawner" type="Node3D" parent="."]
+script = ExtResource("7_spawner")
+
+[node name="SupernovaRemnant" parent="." instance=ExtResource("11_remnant")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -78000, 6000, 52000)
+
+[node name="Pulsar" parent="." instance=ExtResource("12_pulsar")]
+transform = Transform3D(0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0, 0, 1, 88000, -14000, -60000)
+
+[node name="Mothership" parent="." instance=ExtResource("13_boss")]
+transform = Transform3D(0.76604, 0, -0.642788, 0, 1, 0, 0.642788, 0, 0.76604, 14400, 3200, 35900)
+
+[node name="Ship" parent="." instance=ExtResource("4_ship")]
+transform = Transform3D(0.92853, -0.030974, 0.370097, 0, 0.99652, 0.0834, -0.37139, -0.07744, 0.925299, 4000, 900, 10000)
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="Interface" instance=ExtResource("6_hud")]
+
+[node name="Map" type="Control" parent="Interface"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("9_map")
+
+[node name="DeadNotice" type="Label" parent="Interface"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -260.0
+offset_top = 60.0
+offset_right = 260.0
+offset_bottom = 130.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.33, 0.24, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 26
+text = "HULL BREACH
+Press R to restart     Press Esc for Menu"
+horizontal_alignment = 1

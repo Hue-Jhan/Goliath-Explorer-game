@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://bglthxplrd001"]
+
+[ext_resource type="Script" path="res://ship/ImpactFlash.gd" id="1_flash"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_flash"]
+radius = 1.0
+height = 2.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_flash"]
+transparency = 1
+shading_mode = 0
+blend_mode = 1
+albedo_color = Color(1, 0.55, 0.3, 0.65)
+emission_enabled = true
+emission = Color(1, 0.4, 0.16, 1)
+emission_energy_multiplier = 9.0
+disable_receive_shadows = true
+
+[node name="ImpactFlash" type="Node3D"]
+script = ExtResource("1_flash")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_flash")
+material_override = SubResource("StandardMaterial3D_flash")
+cast_shadow = 0
+
+[node name="Light" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.5, 0.25, 1)
+light_energy = 0.0
+omni_range = 40.0
+shadow_enabled = false

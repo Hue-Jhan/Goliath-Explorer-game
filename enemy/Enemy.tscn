@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bglthxplrc001"]
+
+[ext_resource type="Script" path="res://enemy/Enemy.gd" id="1_enemy"]
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_enemy")
+
+[node name="Hull" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+
+[node name="Body" type="CollisionShape3D" parent="."]
+
+[node name="Glow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.8)
+light_color = Color(1, 0.28, 0.18, 1)
+light_energy = 2.0
+omni_range = 6.0
+shadow_enabled = false

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bglthxplr5001"]
+
+[ext_resource type="Script" path="res://environment/Asteroid.gd" id="1_asteroid"]
+
+[node name="Asteroid" type="StaticBody3D"]
+collision_layer = 1
+collision_mask = 1
+script = ExtResource("1_asteroid")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+
+[node name="Body" type="CollisionShape3D" parent="."]

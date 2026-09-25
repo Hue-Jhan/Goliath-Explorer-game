@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://bglthxplre001"]
+
+[ext_resource type="Script" path="res://environment/Explosion.gd" id="1_boom"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ball"]
+radius = 1.0
+height = 2.0
+radial_segments = 14
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ball"]
+transparency = 1
+shading_mode = 0
+blend_mode = 1
+albedo_color = Color(1, 0.6, 0.25, 0.7)
+emission_enabled = true
+emission = Color(1, 0.45, 0.12, 1)
+emission_energy_multiplier = 14.0
+disable_receive_shadows = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shock"]
+transparency = 1
+shading_mode = 0
+blend_mode = 1
+cull_mode = 2
+albedo_color = Color(1, 0.94, 0.8, 0.35)
+emission_enabled = true
+emission = Color(1, 0.92, 0.75, 1)
+emission_energy_multiplier = 9.0
+disable_receive_shadows = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_spark"]
+size = Vector3(0.5, 0.5, 2.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spark"]
+transparency = 1
+shading_mode = 0
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.85, 0.5, 1)
+emission_enabled = true
+emission = Color(1, 0.6, 0.2, 1)
+emission_energy_multiplier = 8.0
+disable_receive_shadows = true
+
+[node name="Explosion" type="Node3D"]
+script = ExtResource("1_boom")
+
+[node name="Fireball" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ball")
+material_override = SubResource("StandardMaterial3D_ball")
+cast_shadow = 0
+
+[node name="Shock" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ball")
+material_override = SubResource("StandardMaterial3D_shock")
+cast_shadow = 0
+
+[node name="Light" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.55, 0.2, 1)
+light_energy = 0.0
+omni_range = 60.0
+shadow_enabled = false
+
+[node name="Sparks" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 26
+lifetime = 0.85
+one_shot = true
+explosiveness = 1.0
+draw_order = 2
+mesh = SubResource("BoxMesh_spark")
+material_override = SubResource("StandardMaterial3D_spark")

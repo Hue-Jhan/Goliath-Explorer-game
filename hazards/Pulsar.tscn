@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bglthxplrg001"]
+
+[ext_resource type="Script" path="res://hazards/Pulsar.gd" id="1_pulsar"]
+
+[node name="Pulsar" type="Node3D"]
+script = ExtResource("1_pulsar")
